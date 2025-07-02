@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 2rem;
+            background-color: #f9f9f9;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:disabled {
+            background-color: #aaa;
+            cursor: not-allowed;
+        }
+        .feedback {
+            text-align: center;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+        .feedback.success {
+            color: green;
+        }
+        .feedback.error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <form id="contactForm" novalidate>
+        <label for="name">Name *</label>
+        <input type="text" id="name" name="name" required minlength="2" />
+        
+        <label for="email">Email *</label>
+        <input type="email" id="email" name="email" required />
+        
+        <label for="message">Message *</label>
+        <textarea id="message" name="message" rows="5" required minlength="10"></textarea>
+        
+        <button type="submit">Send</button>
+        <div id="feedback" class="feedback"></div>
+    </form>
+
+    <script>
+        const form = document.getElementById('contactForm');
+        const feedback = document.getElementById('feedback');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            feedback.textContent = '';
+            feedback.className = 'feedback';
+
+            if (!form.checkValidity()) {
+                feedback.textContent = 'Please fill out all fields correctly.';
+                feedback.classList.add('error');
+                return;
+            }
+
+            // Simulate form submission
+            const formData = {
+                name: form.name.value.trim(),
+                email: form.email.value.trim(),
+                message: form.message.value.trim()
+            };
+
+            // Here you would normally send the data to a server
+            // For this front-end only example, just simulate success
+            setTimeout(() => {
+                feedback.textContent = 'Thank you for your message!';
+                feedback.classList.add('success');
+                form.reset();
+            }, 500);
+        });
+    </script>
+</body>
+</html>
